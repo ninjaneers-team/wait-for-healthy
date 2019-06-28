@@ -5,6 +5,8 @@ language: node_js
 services:
   - docker
 
-before_install:
+before_script:
   - docker build -t eficode/wait-for-healthy .
   - docker run eficode/wait-for-healthy
+  - docker pull ninjaneers/semantic-release
+  - docker run semantic-release
