@@ -6,7 +6,7 @@ services:
   - docker
 
 before_script:
-  - docker build -t eficode/wait-for-healthy .
-  - docker run eficode/wait-for-healthy
+  - docker build -t ninjaneers/wait-for-healthy .
+  - docker run ninjaneers/wait-for-healthy
   - docker pull ninjaneers/semantic-release
-  - docker run semantic-release
+  - docker run ninjaneers/semantic-release
