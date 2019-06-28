@@ -32,7 +32,7 @@ Ninjaneers site is up
 To check any service which respond to a POST request healthy status (200, 201 HTTP status code):
 
 ```
-$ ./wait-for-healthy anyservice:9000/api/status POST -- echo "Service is up and healthy"
+$ ./wait-for-healthy anyservice:9000/api/status -m POST -- echo "Service is up and healthy"
 
 Connection to anyservice:9000/api/status [tcp/http] succeeded!
 Service site is healthy
