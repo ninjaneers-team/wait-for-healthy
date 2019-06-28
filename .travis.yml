@@ -6,7 +6,8 @@ services:
   - docker
 
 before_script:
-  - docker build -t ninjaneers/wait-for-healthy .
+  - docker build -t ninjaneers/wait-for-healthy:${VERSION} .
   - docker run ninjaneers/wait-for-healthy
   - docker pull ninjaneers/semantic-release
-  - docker run ninjaneers/semantic-release
+  - docker run ninjaneers/semantic-release semantic-release
+  - export VERSION=$(git describe --tags --abbrev=0 | cut -c 2-)
