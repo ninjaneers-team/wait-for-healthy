@@ -11,9 +11,10 @@ usage() {
   exitcode="$1"
   cat << USAGE >&2
 Usage:
-  $cmdname host:port [-t timeout] [-- command args]
+  $cmdname url [-m method] [-t timeout] [-- command args]
   -q | --quiet                        Do not output any status messages
   -t TIMEOUT | --timeout=timeout      Timeout in seconds, zero for no timeout
+  -m METHOD | --method=method         HTTP Status, GET as default
   -- COMMAND ARGS                     Execute command with args after the test finishes
 USAGE
   exit "$exitcode"
@@ -21,10 +22,9 @@ USAGE
 
 wait_for() {
   for i in `seq $TIMEOUT` ; do
-    nc -z "$HOST" "$PORT" > /dev/null 2>&1
+    result=$(curl -X $METHOD -s -o /dev/null -w "%{http_code}" $URL)
     
-    result=$?
-    if [ $result -eq 0 ] ; then
+    if [[ $result -eq 200 || $result -eq 201 ]] ; then
       if [ $# -gt 0 ] ; then
         exec "$@"
       fi
@@ -39,10 +39,13 @@ wait_for() {
 while [ $# -gt 0 ]
 do
   case "$1" in
-    *:* )
-    HOST=$(printf "%s\n" "$1"| cut -d : -f 1)
-    PORT=$(printf "%s\n" "$1"| cut -d : -f 2)
+    --method=*)
+    METHOD="${1#*=}"
     shift 1
+    ;;
+    -m)
+    METHOD="$2"
+    shift 2
     ;;
     -q | --quiet)
     QUIET=1
@@ -65,14 +68,18 @@ do
     usage 0
     ;;
     *)
-    echoerr "Unknown argument: $1"
-    usage 1
+    URL=$1
+    shift 1
     ;;
   esac
 done
 
-if [ "$HOST" = "" -o "$PORT" = "" ]; then
-  echoerr "Error: you need to provide a host and port to test."
+if [ "$METHOD" = "" ]; then
+  METHOD="GET"
+fi
+
+if [ "$URL" = "" ]; then
+  echoerr "Error: you need to provide a url to test healthiness."
   usage 2
 fi
 

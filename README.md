@@ -1,51 +1,48 @@
-## Wait for another service to become available
+## Wait for another service to become healthy
 
-`./wait-for` is a script designed to synchronize services like docker containers. It is [sh](https://en.wikipedia.org/wiki/Bourne_shell) and [alpine](https://alpinelinux.org/) compatible. It was inspired by [vishnubob/wait-for-it](https://github.com/vishnubob/wait-for-it), but the core has been rewritten at [Eficode](http://eficode.com/) by [dsuni](https://github.com/dsuni) and [mrako](https://github.com/mrako).
+`./wait-for-healthy` is a script designed to synchronize services like docker containers. It is [sh](https://en.wikipedia.org/wiki/Bourne_shell) and [alpine](https://alpinelinux.org/) compatible. It was inspired by [vishnubob/wait-for-it](https://github.com/vishnubob/wait-for-it) and [eficode/wait-for](https://github.com/eficode/wait-for).
 
-When using this tool, you only need to pick the `wait-for` file as part of your project.
+When using this tool, you only need to pick the `wait-for-healthy` file as part of your project.
 
-[![Build Status](https://travis-ci.org/eficode/wait-for.svg?branch=master)](https://travis-ci.org/eficode/wait-for)
+[![Build Status](https://travis-ci.org/ninjaneers-team/wait-for-healthy.svg?branch=master)](https://travis-ci.org/ninjaneers-team/wait-for-healthy)
 
 ## Usage
 
 ```
-./wait-for host:port [-t timeout] [-- command args]
+./wait-for-healthy url [-m method] [-t timeout] [-- command args]
   -q | --quiet                        Do not output any status messages
+  -m | --method                       Set HTTP method (Default: GET)
   -t TIMEOUT | --timeout=timeout      Timeout in seconds, zero for no timeout
   -- COMMAND ARGS                     Execute command with args after the test finishes
 ```
 
+**Important**: cUrl needs to be installed
+
 ## Examples
 
-To check if [eficode.com](https://eficode.com) is available:
+To check if [ninjaneers.de](https://ninjaneers.de) is healthy:
 
 ```
-$ ./wait-for www.eficode.com:80 -- echo "Eficode site is up"
+$ ./wait-for-healthy ninjaneers.de GET -- echo "Ninjaneers site is up"
 
-Connection to www.eficode.com port 80 [tcp/http] succeeded!
-Eficode site is up
+Connection to ninjaneers.de [tcp/http] succeeded!
+Ninjaneers site is up
 ```
 
-To wait for database container to become available:
-
+To check any service which respond to a POST request healthy status (200, 201 HTTP status code):
 
 ```
-version: '2'
+$ ./wait-for-healthy anyservice:9000/api/status POST -- echo "Service is up and healthy"
 
-services:
-  db:
-    image: postgres:9.4
-
-  backend:
-    build: backend
-    command: sh -c './wait-for db:5432 -- npm start'
-    depends_on:
-      - db
+Connection to anyservice:9000/api/status [tcp/http] succeeded!
+Service site is healthy
 ```
 
 ## Testing
 
 Ironically testing is done using [bats](https://github.com/sstephenson/bats), which on the other hand is depending on [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
 
-    docker build -t wait-for .
-    docker run -t wait-for
+    docker build -t wait-for-healthy .
+    docker run -t wait-for-healthy
+
+
