@@ -24,7 +24,7 @@ wait_for() {
   for i in `seq $TIMEOUT` ; do
     result=$(curl -X $METHOD -s -o /dev/null -w "%{http_code}" $URL)
     
-    if [[ $result -eq 200 || $result -eq 201 ]] ; then
+    if [ $result = 200 -o $result = 201 ] ; then
       if [ $# -gt 0 ] ; then
         exec "$@"
       fi
