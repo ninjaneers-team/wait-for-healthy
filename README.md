@@ -16,6 +16,12 @@ RUN wget https://raw.githubusercontent.com/ninjaneers-team/wait-for-healthy/mast
 
 inside your docker image and do a `chmod +x`.
 
+You can although use a special version when you replace `/master` with `v1.1.0` or any other tag.
+
+```
+RUN wget https://raw.githubusercontent.com/ninjaneers-team/wait-for-healthy/v1.1.0/wait-for-healthy
+```
+
 [ninjaneers/flywait](https://hub.docker.com/r/ninjaneers/flywait) Example: 
 
 ```

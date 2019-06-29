@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/ninjaneers-team/wait-for-healthy/compare/v1.0.0...v1.1.0) (2019-06-29)
+
+
+### Features
+
+* **bash:** posix compatibility ([1e1b5db](https://github.com/ninjaneers-team/wait-for-healthy/commit/1e1b5db))
+
 # 1.0.0 (2019-06-29)
 
 
