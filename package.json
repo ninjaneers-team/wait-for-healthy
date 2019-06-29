@@ -1,9 +1,7 @@
 {
     "name": "wait-for-healthy",
     "version": "0.1.0",
-    "scripts": {
-        "test": "./node_modules/.bin/bats wait-for-healthy.bats"
-    },
+    "scripts": {},
     "dependencies": {
         "bats": "^0.4.2"
     }

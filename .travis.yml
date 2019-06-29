@@ -14,7 +14,7 @@ branches:
 install:
   - npm install -g semantic-release @semantic-release/release-notes-generator @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/github @semantic-release/git
 
-before_script:
+script:
   - docker build -t ninjaneers/wait-for-healthy .
   - docker run ninjaneers/wait-for-healthy
   - semantic-release
