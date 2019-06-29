@@ -9,6 +9,7 @@ echoerr() {
 
 usage() {
   exitcode="$1"
+  # shellcheck disable=SC2154
   cat << USAGE >&2
 Usage:
   $cmdname url [-m method] [-t timeout] [-- command args]
@@ -21,10 +22,11 @@ USAGE
 }
 
 wait_for() {
-  for i in `seq $TIMEOUT` ; do
-    result=$(curl -X $METHOD -s -o /dev/null -w "%{http_code}" $URL)
+  # shellcheck disable=SC2034
+  for i in seq $TIMEOUT ; do
+    result=$(curl -X "$METHOD" -s -o /dev/null -w "%{http_code}" "$URL")
     
-    if [ $result = 200 -o $result = 201 ] ; then
+    if [ "$result" = 200 ] || [ "$result" = 201 ] ; then
       if [ $# -gt 0 ] ; then
         exec "$@"
       fi
