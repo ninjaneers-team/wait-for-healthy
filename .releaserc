@@ -1,5 +1,5 @@
 {
-  "repositoryUrl": "git@github.com:ninjaneers-team/wait-for-healthy.git",
+  "repositoryUrl": "git+https://github.com/ninjaneers-team/wait-for-healthy.git",
     "plugins": [
       "@semantic-release/commit-analyzer",
       [

@@ -1,12 +1,20 @@
+language: node_js
 sudo: required
 
-language: node_js
-
+node_js:
+  - "10"
+  
 services:
   - docker
+
+branches:
+  only:
+  - master
+
+install:
+  - npm install -g semantic-release @semantic-release/release-notes-generator @semantic-release/commit-analyzer @semantic-release/changelog @semantic-release/github @semantic-release/git
 
 before_script:
   - docker build -t ninjaneers/wait-for-healthy .
   - docker run ninjaneers/wait-for-healthy
-  - docker pull ninjaneers/semantic-release
-  - docker run ninjaneers/semantic-release semantic-release
+  - semantic-release
