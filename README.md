@@ -6,6 +6,32 @@ When using this tool, you only need to pick the `wait-for-healthy` file as part 
 
 [![Build Status](https://travis-ci.org/ninjaneers-team/wait-for-healthy.svg?branch=master)](https://travis-ci.org/ninjaneers-team/wait-for-healthy)
 
+## Installation
+
+To install `wait-for-healthy` just run 
+
+```
+RUN wget https://raw.githubusercontent.com/ninjaneers-team/wait-for-healthy/master/wait-for-healthy
+```
+
+inside your docker image and do a `chmod +x`.
+
+[ninjaneers/flywait](https://hub.docker.com/r/ninjaneers/flywait) Example: 
+
+```
+FROM boxfuse/flyway
+
+RUN apt-get update && apt-get install -y \
+    curl
+
+RUN wget https://raw.githubusercontent.com/ninjaneers-team/wait-for-healthy/master/wait-for-healthy
+RUN ["chmod", "+x", "./wait-for-healthy"]
+
+ENTRYPOINT [ "bin/sh" ]
+```
+
+**Important**: cUrl needs to be installed
+
 ## Usage
 
 ```
@@ -15,8 +41,6 @@ When using this tool, you only need to pick the `wait-for-healthy` file as part 
   -t TIMEOUT | --timeout=timeout      Timeout in seconds, zero for no timeout
   -- COMMAND ARGS                     Execute command with args after the test finishes
 ```
-
-**Important**: cUrl needs to be installed
 
 ## Examples
 
