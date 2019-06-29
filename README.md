@@ -74,5 +74,8 @@ Ironically testing is done using [bats](https://github.com/sstephenson/bats), wh
 
     docker build -t wait-for-healthy .
     docker run -t wait-for-healthy
+    
+## Code analysis
+Code analysis is done using [shellcheck](https://www.shellcheck.net/)
 
 
