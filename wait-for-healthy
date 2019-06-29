@@ -23,7 +23,7 @@ USAGE
 
 wait_for() {
   # shellcheck disable=SC2034
-  for i in seq $TIMEOUT ; do
+  for i in $(seq $TIMEOUT) ; do
     result=$(curl -X "$METHOD" -s -o /dev/null -w "%{http_code}" "$URL")
     
     if [ "$result" = 200 ] || [ "$result" = 201 ] ; then

@@ -59,7 +59,7 @@ To check any service which respond to a POST request healthy status (200, 201 HT
 $ ./wait-for-healthy anyservice:9000/api/status -m POST -- echo "Service is up and healthy"
 
 Connection to anyservice:9000/api/status [tcp/http] succeeded!
-Service site is healthy
+Service site is healthy 
 ```
 
 ## Testing
